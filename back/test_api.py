@@ -32,7 +32,7 @@ def test_get_all_books(client):
     assert response.status_code == 200
     data = response.get_json()
     assert len(data) == data_pre_insert + 1
-    assert data[3]["title"] == "Test Book"
+    assert data[-1]["title"] == "Test Book"
 
 def test_add_book(client):
     """Test adding a book (POST /add)."""
