@@ -1,0 +1,42 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>Books</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-success" (click)="AddBook()">
+                <i class='fas fa-plus-circle'></i><span> ADD</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-striped table-hover table-bordered table-content">
+          <thead>
+            <tr class="center-align">
+              <th>Title</th>
+              <th>Author</th>
+              <th>Read?</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of booksList" class="center-align">
+              <td>{{ book.title }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.read }}</td>
+              <td>
+                <a href="#" [routerLink]="['/editBook/', book.id]" class="btn"><i class="fa fa-edit edit"></i></a>
+                <button type="button" (click)="deleteBookConfirmation(book)" class="btn"><i class='fas fa-trash-alt delete'></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td *ngIf="booksList.length == 0" colspan="6">No Books Found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

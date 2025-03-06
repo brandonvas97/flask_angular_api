@@ -1,0 +1,71 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>New Book</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <a href="#" routerLink="/" class="btn btn-success back"><i class='fas fa-arrow-circle-left'></i>
+                 Back</a>
+            </div>
+          </div>
+        </div>
+        <form #bookForm="ngForm">
+          <div class="table-content">
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label for="FirstName" class="p-t-b-10">Title<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="title" required maxlength="255"
+                  [(ngModel)]="addBookForm.title" name="title" #title="ngModel">
+                <div *ngIf="title.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!title.errors?.['required']">
+                    Title is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label for="LastName" class="p-t-b-10">Author<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="author" required maxlength="255"
+                  [(ngModel)]="addBookForm.author" name="author" #author="ngModel">
+                <div *ngIf="author.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!author.errors?.['required']">
+                    Author is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label class="p-t-b-10">Read?<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <select class="form-control" id="read" required [(ngModel)]="addBookForm.read" name="read" #read="ngModel">
+                    <option [value]="true">Yes</option>
+                    <option [value]="false">No</option>
+                </select>
+                <div *ngIf="read.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!read.errors?.['required']">
+                    Read is required
+                  </div>
+                  <!--<div [hidden]="!read.errors?.['touched'] && !read.errors?.['pattern']">
+                    read is invalid-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          <div class="table-footer">
+            <button class="btn btn-success" (click)="AddBook(bookForm.form.valid)">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

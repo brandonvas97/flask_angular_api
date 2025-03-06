@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "63efdc97-91bf-4340-acbe-c8eb1e2f5912",
+		"name": "Book-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18153409"
+	},
+	"item": [
+		{
+			"name": "Get books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should be an array\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Books should have id, title, author, and read fields\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    if (jsonData.length > 0) {\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"id\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"title\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"author\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"read\");\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Define jsonData as a sample JSON object before using it in the test script\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain the added book\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    let requestBody = JSON.parse(pm.request.body.raw);\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData.title).to.equal(requestBody.title);\r",
+							"    pm.expect(jsonData.author).to.equal(requestBody.author);\r",
+							"    pm.expect(jsonData.read).to.equal(requestBody.read);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Titulo 1\",\r\n    \"author\":\"Autor 1\",\r\n    \"read\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain the updated book\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    let requestBody = JSON.parse(pm.request.body.raw);\r",
+							"    pm.expect(jsonData.title).to.equal(requestBody.title);\r",
+							"    pm.expect(jsonData.author).to.equal(requestBody.author);\r",
+							"    pm.expect(jsonData.read).to.equal(requestBody.read);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Titulo 2\",\r\n    \"author\":\"Autor 2\",\r\n    \"read\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/edit/aa34963951a9497fb17825bd07c1fc77",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"edit",
+						"aa34963951a9497fb17825bd07c1fc77"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain the deleted book\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    if (jsonData.length > 0) {\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"id\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"title\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"author\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"read\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/delete/2105792000224afa99c967caf11401af",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"delete",
+						"2105792000224afa99c967caf11401af"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should contain the book details\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    if (jsonData.length > 0) {\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"id\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"title\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"author\");\r",
+							"        pm.expect(jsonData[0]).to.have.property(\"read\");\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/list/2105792000224afa99c967caf11401af",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"list",
+						"2105792000224afa99c967caf11401af"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
